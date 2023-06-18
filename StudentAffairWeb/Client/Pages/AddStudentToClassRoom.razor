@@ -1,0 +1,36 @@
+﻿@page "/AddClassRoomStudent"
+@page "/EditClassRoomStudent/{id}"
+@attribute [Authorize]
+
+
+@if (String.IsNullOrEmpty(id))
+{
+    <h3>Add ClassRoomStudent</h3>
+}
+else
+{
+    <h3>Edit ClassRoomStudent</h3>
+}
+<div class='card p-5'>
+
+    <EditForm Model="_classRoomStudent" OnValidSubmit="@Submit" class="form">
+        <FluentValidationValidator />
+        <ValidationSummary />
+
+
+        @if (String.IsNullOrEmpty(id))
+        {
+            <button type="submit" class="btn btn-primary mt-5 me-2 ">
+                Add
+            </button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-primary mt-5 me-2 ">
+                Save
+            </button>
+        }
+        <a href="students" class="btn btn-danger mt-5 me-4">Cancel </a>
+    </EditForm>
+
+</div>

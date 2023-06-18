@@ -1,0 +1,53 @@
+﻿@page "/AddStudent"
+@page "/EditStudent/{id}"
+@attribute [Authorize]
+
+@if (String.IsNullOrEmpty(id))
+{
+    <h3>Add Student</h3>
+}
+else
+{
+    <h3>Edit Student</h3>
+}
+<div class='card p-5'>
+
+    <EditForm Model="_student" OnValidSubmit="@Submit" class="form">
+        <FluentValidationValidator />
+        <ValidationSummary />
+        <div class="form-row row mb-4">
+            <div class="col-md-auto">
+                <ImageView height="200" width="200" ImageFile="imageFile" />
+            </div>
+            <div class="col-md-auto mt-5 ">
+
+                <InputFile OnChange="@LoadImage" />
+            </div>
+        </div>
+
+        <label for="name">Name:</label>
+        <InputText @bind-Value="_student.Name" class="form-control "></InputText>
+
+        <label for="Phone">Phone:</label>
+        <InputText @bind-Value="_student.Phone" class="form-control "></InputText>
+
+
+        <label for="BirthDate">BirthDate:</label>
+        <InputDate @bind-Value="_student.Birthdate" @bind-Value:format="dd/MM/yyyy" class="form-control "></InputDate>
+
+        @if (String.IsNullOrEmpty(id))
+        {
+            <button type="submit" class="btn btn-primary mt-5 me-2 ">
+                Add
+            </button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-primary mt-5 me-2 ">
+                Save
+            </button>
+        }
+        <a href="students" class="btn btn-danger mt-5 me-4">Cancel </a>
+    </EditForm>
+
+</div>

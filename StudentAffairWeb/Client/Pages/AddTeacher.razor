@@ -1,0 +1,46 @@
+﻿@page "/AddTeacher"
+@page "/EditTeacher/{id}"
+@attribute [Authorize]
+
+
+@if (String.IsNullOrEmpty(id))
+{
+    <h3>Add Teacher</h3>
+}
+else
+{
+    <h3>Edit Teacher</h3>
+}
+<div class='card p-5'>
+    <EditForm Model="_teacher" OnValidSubmit="@Submit" class="form ">
+        <FluentValidationValidator />
+        <ValidationSummary />
+        <label for="name">Name:</label>
+        <InputText @bind-Value="_teacher.Name" class="form-control "></InputText>
+        <ValidationMessage For="@(() => _teacher.Name)" />
+
+        <label for="Moblie">Phone:</label>
+        <InputText @bind-Value="_teacher.Phone" class="form-control "></InputText>
+        <ValidationMessage For="@(() => _teacher.Phone)" />
+
+
+        <label for="BirthDate">BirthDate:</label>
+        <InputDate @bind-Value="_teacher.Birthdate" @bind-Value:format="dd/MM/yyyy" class="form-control "></InputDate>
+        <ValidationMessage For="@(() => _teacher.Birthdate)" />
+
+        @if (String.IsNullOrEmpty(id))
+        {
+            <button type="submit" class="btn btn-primary mt-5 me-2 ">
+                Add
+            </button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-primary mt-5 me-2 ">
+                Save
+            </button>
+        }
+        <a href="teachers" class="btn btn-danger mt-5 me-4">Cancel </a>
+    </EditForm>
+
+</div>

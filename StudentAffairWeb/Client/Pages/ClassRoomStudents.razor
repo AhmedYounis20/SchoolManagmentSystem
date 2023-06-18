@@ -1,0 +1,47 @@
+﻿@page "/classRoomStudents"
+@attribute [Authorize]
+
+<h3>ClassRoomStudents</h3>
+
+<div class=" row p-0">
+    <div class="col col-5">
+        <button @onclick="AddClassRoomStudent" class="btn btn-primary align-self-end">add ClassRoomStudent</button>
+    </div>
+    <div class="col col-4">
+        <input type="text" class="form-control ml-6" @bind-value="searchText" />
+    </div>
+    <div class="col col-1">
+        <button class="btn btn-primary  " @onclick="Search">search</button>
+    </div>
+</div>
+<table class="table table-borderless table-responsive-xl table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (classRoomStudents == null)
+        {
+            <p>loading</p>
+        }
+        else if (classRoomStudents.Count == 0)
+        {
+            <p> No ClassRoomStudents Found</p>
+        }
+        else
+        {
+            @foreach (ClassRoomStudent classRoomStudent in classRoomStudents)
+            {
+                <tr>
+
+                    <td>
+                        <button class="btn btn-danger" @onclick="()=>Delete(classRoomStudent.Id)">Delete</button>
+                        <button class="btn btn-secondary" @onclick="()=>Update(classRoomStudent.Id)">Update</button>
+
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

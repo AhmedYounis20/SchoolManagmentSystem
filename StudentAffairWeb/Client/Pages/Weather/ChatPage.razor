@@ -1,0 +1,81 @@
+﻿@page "/broadcastchat"
+@attribute [Authorize]
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.AspNetCore.SignalR.Client;
+@inject NavigationManager Navigation
+<div class="card">
+
+    <div class="card-body ">
+        <div class="card-header m-0" style=" height:75vh; overflow-y:scroll;" id="chat">
+
+            <Virtualize Items="messages" Context="context">
+                <ItemContent>
+                    <div class="card m-4" style="border-radius: 15px; background-color: rgba(57, 192, 237,.2);">
+                        <label>
+                            @context.MessageContent
+                        </label>
+                    </div>
+                </ItemContent>
+                <Placeholder>
+                    Loading...
+                </Placeholder>
+            </Virtualize>
+        </div>
+        <div class="card-footer">
+
+            <div class=" card-title">
+                <div class="row">
+                    <div class="col-md-10 m-0 p-0">
+                        <input @bind-value="message.MessageContent" class="form-control-lg w-100" />
+                    </div>
+                    <div class="col-md-2 p-0">
+                        <button class="btn btn-primary btn-lg w-100" onclick="@(async ()=> await sendAMessage())"><i class="fade fa-send"></i> Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private HubConnection? hubConnection;
+    private List<Message> messages = new List<Message>();
+    private List<User> systemUsers = new();
+    private Message message = new();
+    protected override async Task OnInitializedAsync()
+    {
+        messages = (await _client.GetFromJsonAsync<List<Message>>("api/Message")) ?? new();
+        await IntiateHub();
+        await InvokeAsync(() => StateHasChanged());
+        await ScrollChat();
+        await base.OnInitializedAsync();
+    }
+    private async Task sendAMessage()
+    {
+        if (hubConnection is not null)
+        {
+            await _client.PostAsJsonAsync("api/Message/", message);
+            await hubConnection.SendAsync("SendBroadCast", message);
+            await ScrollChat();
+            await ScrollChat();
+        }
+    }
+    private async Task IntiateHub()
+    {
+        hubConnection = new HubConnectionBuilder()
+            .WithUrl(Navigation.ToAbsoluteUri("/chathub"))
+            .Build();
+        hubConnection.On<Message>("BroadCast", (newMessage) =>
+    {
+        messages.Add(newMessage);
+        InvokeAsync(StateHasChanged);
+    });
+
+        await hubConnection.StartAsync();
+    }
+
+    private async Task ScrollChat()
+    {
+        await Js.InvokeVoidAsync("ScrollDiv", "chat");
+    }
+}

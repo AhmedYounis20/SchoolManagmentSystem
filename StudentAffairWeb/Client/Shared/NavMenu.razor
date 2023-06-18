@@ -1,0 +1,95 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">StudentAffairWeb</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
+    <nav class="flex-column" style="overflow-y:scroll;   height:80vh; position:absolute;">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="swagger">
+                <span class="oi oi-clipboard" aria-hidden="true"></span> Swagger Api
+            </NavLink>
+        </div>
+        <AuthorizeView Roles="@nameof(SecurityRole.Admin)">
+            
+            <Authorized>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="AddUser">
+                <span class="oi oi-person" aria-hidden="true"></span> Add User
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="Users">
+                <span class="oi oi-people" aria-hidden="true"></span>  Users
+            </NavLink>
+        </div>
+            </Authorized>
+        </AuthorizeView>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="broadcastchat">
+                <span class="oi oi-people" aria-hidden="true"></span> Broad Cast
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="teachers">
+                <span class="oi oi-people" aria-hidden="true"></span> Teachers
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="AddTeacher">
+                <span class="oi oi-person" aria-hidden="true"></span> Add Teacher
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="students">
+                <span class="oi oi-people" aria-hidden="true"></span> Students
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="AddStudent">
+                <span class="oi oi-person" aria-hidden="true"></span> Add Student
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="ClassRooms">
+                <span class="oi oi-calendar" aria-hidden="true"></span> ClassRooms
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="AddClassRoom">
+                <span class="oi oi-project" aria-hidden="true"></span> Add ClassRoom
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="Subjects">
+                <span class="oi oi-book" aria-hidden="true"></span>  Subjects
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="AddSubject">
+                <span class="oi oi-pencil" aria-hidden="true"></span>Add Subject
+            </NavLink>
+        </div>
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

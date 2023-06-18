@@ -1,0 +1,25 @@
+﻿
+<img src="@profileImageUrl" style="width:@(width)px; height:@(height)px;" />
+
+@code {
+    [Parameter] public int height { get; set; } = 200;
+    [Parameter] public int width { get; set; } = 200;
+    [Parameter] public IBrowserFile ImageFile { get; set; }
+    string profileImageUrl;
+    protected override async Task OnParametersSetAsync()
+    {
+        if (ImageFile is not null)
+            await ShowImage();
+        else
+            profileImageUrl = "https://t4.ftcdn.net/jpg/00/97/00/09/240_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg";
+        await base.OnParametersSetAsync();
+    }
+    async Task ShowImage()
+    {
+        byte[] buffer = new byte[ImageFile.Size];
+        await ImageFile.OpenReadStream(maxAllowedSize: 100 * 1024 * 1024).ReadAsync(buffer);
+        profileImageUrl = $"data:image/png;base64,{Convert.ToBase64String(buffer)}";
+        StateHasChanged();
+    }
+
+}

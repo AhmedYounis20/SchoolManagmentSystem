@@ -1,0 +1,31 @@
+﻿@page "/profile"
+@attribute [Authorize]
+
+
+<h3>profile</h3>
+<div class="form-row row mb-4">
+    <div class="col-md-auto">
+        <img height="200" width="200" src="@user.ImagePath" />
+    </div>
+</div>
+<label for="name">Email:</label>
+<input disabled @bind-value="user.Email" class="form-control " />
+<label for="name">Name:</label>
+<input disabled @bind-value="user.Name" class="form-control " />
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState>? authenticationStateTask { get; set; }
+
+    User user = new();
+    protected override async Task OnInitializedAsync()
+    {
+        var loggedinUser = (await authenticationStateTask).User;
+        if (loggedinUser?.Identity?.IsAuthenticated ?? false)
+        {
+            user = await _client.GetFromJsonAsync<User>($"api/User/{loggedinUser.Claims.FirstOrDefault(e => e.Type == ClaimTypes.NameIdentifier).Value}") ?? new();
+        }
+        await base.OnInitializedAsync();
+    }
+
+}

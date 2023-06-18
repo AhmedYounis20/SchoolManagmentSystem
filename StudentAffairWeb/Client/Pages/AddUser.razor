@@ -1,0 +1,56 @@
+﻿@page "/AddUser"
+@page "/EditUser/{id}"
+
+<div style="justify-content:center;align-items:center;">
+
+
+    @if (String.IsNullOrEmpty(id))
+    {
+        <h3>Add User</h3>
+    }
+    else
+    {
+        <h3>Edit User</h3>
+    }
+    <div class='card p-5 ' style="justify-content:center;align-items:center;">
+
+        <EditForm Model="_user" OnValidSubmit="@Submit" class="form">
+            <FluentValidationValidator />
+            <ValidationSummary />
+            <div class="form-row row mb-4">
+                <div class="col-md-auto">
+                    <ImageView height="200" width="200" ImageFile="imageFile" />
+                </div>
+                <div class="col-md-auto mt-5 ">
+
+                    <InputFile OnChange="@LoadImage" />
+                </div>
+            </div>
+
+            <label for="name">Email:</label>
+            <InputText @bind-Value="_user.Email" class="form-control "></InputText>
+
+            <label for="name">Name:</label>
+            <InputText @bind-Value="_user.Name" class="form-control "></InputText>
+
+            <label for="Phone">Password:</label>
+            <input @bind-value="_user.Password" type="password" class="form-control "></input>
+
+            @if (String.IsNullOrEmpty(id))
+            {
+                <button type="submit" class="btn btn-primary mt-5 me-2 ">
+                    Add
+                </button>
+            }
+            else
+            {
+                <button type="submit" class="btn btn-primary mt-5 me-2 ">
+                    Save
+                </button>
+            }
+            <a href="systemusers" class="btn btn-danger mt-5 me-4">Cancel </a>
+        </EditForm>
+
+    </div>
+
+</div>

@@ -1,0 +1,158 @@
+﻿@page "/classRoom/{ClassroomId}"
+@attribute [Authorize]
+
+
+@if (classRoom == null || teacher == null || subject == null)
+{
+    <h1>loading...</h1>
+}
+else
+{
+
+    <div>
+        <h2>@classRoom.Name</h2>
+        <a href="EditClassRoom/@classRoom.Id" class="btn btn-primary">Update</a>
+    </div>
+
+    <div class="container">
+        <h3>Subject: @subject.Name</h3>
+        <table class="table table-borderless table-striped ">
+            <thead>
+                <tr>
+                    <th class="col col-6">
+                        Subject
+                    </th>
+                    <th class="col col-6">
+                        Teacher
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@subject.Name</td>
+                    <td>
+                        <table class="table table-striped">
+                            <tbody>
+
+                                <tr>
+                                    <td>
+                                        Teacher Name
+                                    </td>
+                                    <td>
+                                        @teacher.Name
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Teacher Age
+                                    </td>
+                                    <td>
+                                        @teacher.Age
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Teacher Birthdate
+                                    </td>
+                                    <td>
+                                        @teacher.Birthdate
+                                    </td>
+
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Teacher Phone
+                                    </td>
+                                    <td>
+                                        @teacher.Phone
+                                    </td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <div class="card card-body">
+            <EditForm Model="classRoomStudent" OnValidSubmit="AddStudent">
+                <Blazored.FluentValidation.FluentValidationValidator />
+                <ValidationSummary />
+
+                <label for="Student"> Student:</label>
+                <InputSelect @bind-Value="classRoomStudent.StudentId" class="form-control">
+                    <option value=""></option>
+                    @if (allStudents != null)
+                    {
+                        @foreach (Student student in allStudents)
+                        {
+                            <option value="@student.Id"> @student.Name</option>
+                        }
+                    }
+                </InputSelect>
+
+                <button type="submit" class="btn btn-primary mt-5 me-2 ">
+                    Add
+                </button>
+
+            </EditForm>
+            <h3 class="align-content-center"> students </h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Age</th>
+                        <th>Joined On:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (students == null)
+                    {
+                        <span>
+                            loading ...
+
+                        </span>
+                    }
+                    else if (students.Count == 0)
+                    {
+                        <span>
+
+                            No Students
+                        </span>
+                    }
+                    else
+                    {
+
+                        @foreach (ClassRoomStudent classRoomStudent in students)
+                        {
+                            <tr>
+                                <td>
+                                    @classRoomStudent.Student.Name
+                                </td>
+                                <td>
+                                    @classRoomStudent.Student.Phone
+                                </td>
+                                <td>
+                                    @classRoomStudent.Student.Age
+                                </td>
+                                <td>
+                                    <p>
+                                        @classRoomStudent.JoinedOn
+                                    </p>
+                                </td>
+                                <td>
+                                    <button class="btn btn-danger" @onclick="@(async()=>await RemoveStudent(classRoomStudent.Id))"> Remove </button>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+}

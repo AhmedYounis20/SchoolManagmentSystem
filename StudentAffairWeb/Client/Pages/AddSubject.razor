@@ -1,0 +1,36 @@
+﻿@page "/AddSubject"
+@page "/EditSubject/{id}"
+@attribute [Authorize]
+
+@if (String.IsNullOrEmpty(id))
+{
+    <h3>Add Subject</h3>
+}
+else
+{
+    <h3>Edit Subject</h3>
+}
+<div class='card p-5'>
+
+    <EditForm Model="_subject" OnValidSubmit="@Submit" class="form">
+        <FluentValidationValidator />
+        <ValidationSummary />
+        <label for="name"> Subject Name:</label>
+        <InputText @bind-Value="_subject.Name" class="form-control "></InputText>
+
+        @if (String.IsNullOrEmpty(id))
+        {
+            <button type="submit" class="btn btn-primary mt-5 me-2 ">
+                Add
+            </button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-primary mt-5 me-2 ">
+                Save
+            </button>
+        }
+        <a href="students" class="btn btn-danger mt-5 me-4">Cancel </a>
+    </EditForm>
+
+</div>

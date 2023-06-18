@@ -1,0 +1,124 @@
+﻿@layout LoginLayout
+@namespace StudentAffairWeb.Client
+@page "/login"
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+
+            <EditForm Model="loginRequest" OnValidSubmit="Login">
+                <div class="login100-form validate-form">
+                    <span class="login100-form-title p-b-43">
+                        Login to continue
+                    </span>
+
+
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        <input class="input100" type="text" @bind-value="loginRequest.Email" placeholder="Email" name="email">
+
+
+                    </div>
+
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        <input class="input100" type="password" @bind-value="loginRequest.Password" placeholder="Password" name="pass">
+
+                    </div>
+                    @if (!loggedInSuccessfully)
+                    {
+
+                        <div>
+                            @if (isloading)
+                            {
+                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                              style="font-size: 10pt; width: 20px; height: 20px; color: green" />
+                            }
+                            else
+                            {
+                                <p class="text-danger"> password or email is wrong</p>
+                            }
+                        </div>
+                    }
+                    <div class="row">
+                        <div class="flex-sb-m w-full p-t-3 p-b-32 col-md-9">
+                            <div class="contact100-form-checkbox ">
+                                <input class="input-checkbox100" id="ckb1" type="checkbox" @bind-value="rememberMe" name="remember-me">
+                                <label class="label-checkbox100" for="ckb1">
+                                    Remember me
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="/signUp">
+                                Sign Up
+                            </a>
+                        </div>
+
+
+                        @* <div>
+                        <a href="#" class="txt1">
+                        Forgot Password?
+                        </a>
+                        </div>*@
+                    </div>
+
+
+                    <div class="container-login100-form-btn">
+                        <button type="submit" class="login100-form-btn">
+                            Login
+                        </button>
+                    </div>
+                    @*
+                    <div class="text-center p-t-46 p-b-20">
+                    <span class="txt2">
+                    or sign up using
+                    </span>
+                    </div>
+
+                    <div class="login100-form-social flex-c-m">
+                    <a href="#" class="login100-form-social-item flex-c-m bg1 m-r-5">
+                    <i class="fa fa-facebook-f" aria-hidden="true"></i>
+                    </a>
+
+                    <a href="#" class="login100-form-social-item flex-c-m bg2 m-r-5">
+                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                    </a>
+                    </div>*@
+                </div>
+            </EditForm>
+            <div class="login100-more" style="background-image: url('./images/bg-01.jpg');">
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    LoginRequest loginRequest = new();
+    bool loginWithJwt = false;
+    bool rememberMe = false;
+    bool loggedInSuccessfully = true;
+    bool isloading = false;
+    private async Task Login()
+    {
+        isloading = true;
+        await LoginJwt();
+        isloading = false;
+
+    }
+    private async Task LoginWithCookie()
+    {
+        await _authServices.LoginCookie(loginRequest, rememberMe);
+        navigationManager.NavigateTo("profile", true);
+    }
+    private async Task LoginJwt()
+    {
+        loggedInSuccessfully = false;
+        await _authServices.AuthenticateJWT(loginRequest, rememberMe);
+        var token = await _authServices.GetJWtToken();
+
+        if (!string.IsNullOrEmpty(token))
+        {
+            loggedInSuccessfully = true;
+            navigationManager.NavigateTo("profile", true);
+        }
+    }
+}

@@ -1,0 +1,61 @@
+﻿@page "/AddClassRoom"
+@page "/EditClassRoom/{id}"
+@attribute [Authorize]
+
+        @if (String.IsNullOrEmpty(id))
+        {
+            <h3>Add ClassRoom</h3>
+        }
+        else
+        {
+            <h3>Edit ClassRoom</h3>
+
+        }
+
+        <div class='card p-5'>
+            <EditForm Model="_classRoom" OnValidSubmit="@Submit" class="form">
+                <FluentValidationValidator />
+                <ValidationSummary />
+
+                <label for="name"> Class Name:</label>
+                <InputText @bind-Value="_classRoom.Name" class="form-control "></InputText>
+
+                <label for="Subject"> Subject:</label>
+                <InputSelect @bind-Value="_classRoom.SubjectId" class="form-control">
+                    @if (subjects != null)
+                    {
+                        <option value=""></option>
+                        @foreach (Subject subject in subjects)
+                        {
+                            <option value="@subject.Id"> @subject.Name </option>
+                        }
+                    }
+                </InputSelect>
+
+                <label for="Teacher"> Teacher:</label>
+                <InputSelect @bind-Value="_classRoom.TeacherId" class="form-control">
+                    <option value=""></option>
+                    @if (teachers != null)
+                    {
+                        @foreach (Teacher teacher in teachers)
+                        {
+                            <option value="@teacher.Id"> @teacher.Name</option>
+                        }
+                    }
+                </InputSelect>
+
+                @if (String.IsNullOrEmpty(id))
+                {
+                    <button type="submit" class="btn btn-primary mt-5 me-2 ">
+                        Add
+                    </button>
+                }
+                else
+                {
+                    <button type="submit" class="btn btn-primary mt-5 me-2 ">
+                        Save
+                    </button>
+                }
+                <a href="students" class="btn btn-danger mt-5 me-4">Cancel </a>
+            </EditForm>
+        </div>

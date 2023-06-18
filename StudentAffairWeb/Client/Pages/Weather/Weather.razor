@@ -1,0 +1,49 @@
+﻿@page "/weather"
+<h3>Weather</h3>
+<label>
+    Latitude : @_details.latitude;
+</label>
+<br />
+<label>
+    longitude : @_details.longitude;
+</label>
+<br />
+<div class="form-row row">
+    <div class="col-md-6">
+        <label>
+            wind Speed :
+            @foreach (var item in _details.hourly.winddirection_10m)
+            {
+                <br />
+                @(item) @(_details.hourly_units.windspeed_10m)
+            }
+        </label>
+    </div>
+    <div class="col-md-6">
+
+        <label>
+            Humidity :
+            @foreach (var item in _details.hourly.relativehumidity_2m)
+            {
+                <br />
+                @item
+            }
+        </label>
+    </div>
+</div>
+<div>
+<label>
+            
+            @_details.hourly_units.windspeed_10m
+        </label>
+</div>
+@code {
+    [Inject] public HttpClient client { get; set; }
+    WeatherDetails _details = new();
+    protected override async Task OnInitializedAsync()
+    {
+        _details = await client.GetFromJsonAsync<WeatherDetails>("https://api.open-meteo.com/v1/forecast?latitude=30.79&longitude=30.99&hourly=temperature_2m,relativehumidity_2m,windspeed_10m,windspeed_80m,windspeed_120m,windspeed_180m,winddirection_10m,winddirection_80m,winddirection_120m,winddirection_180m,windgusts_10m,temperature_80m,temperature_120m,temperature_180m,soil_temperature_0cm,soil_temperature_6cm,soil_temperature_18cm,soil_temperature_54cm,soil_moisture_0_1cm,soil_moisture_1_3cm,soil_moisture_3_9cm,soil_moisture_9_27cm,soil_moisture_27_81cm");
+        StateHasChanged();
+        await base.OnInitializedAsync();
+    }
+}

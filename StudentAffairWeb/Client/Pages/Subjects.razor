@@ -1,0 +1,49 @@
+﻿@page "/subjects"
+@attribute [Authorize]
+
+
+
+        <h3>Subjects</h3>
+        <div class=" row p-0">
+            <div class="col col-5">
+                <button @onclick="AddSubject" class="btn btn-primary align-self-end">add Subject</button>
+            </div>
+            <div class="col col-4">
+                <input type="text" class="form-control ml-6" @bind-value="searchText" />
+            </div>
+            <div class="col col-1">
+                <button class="btn btn-primary  " @onclick="Search">search</button>
+            </div>
+        </div>
+
+        <table class="table table-borderless table-responsive-xl table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (subjects == null)
+                {
+                    <p>loading</p>
+                }
+                else if (subjects.Count == 0)
+                {
+                    <p> No Subjects Found</p>
+                }
+                else
+                {
+                    @foreach (Subject subject in subjects)
+                    {
+                        <tr>
+                            <td> @subject.Name </td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(subject.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(subject.Id)">Update</button>
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+

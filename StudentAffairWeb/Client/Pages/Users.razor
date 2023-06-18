@@ -1,0 +1,59 @@
+﻿@page "/users"
+@attribute [Authorize(Roles=nameof(SecurityRole.Admin))]
+
+        <h3>Users</h3>
+        <div class=" row p-0">
+            <div class="col col-5">
+                <button @onclick="AddUser" class="btn btn-primary align-self-end">add User</button>
+            </div>
+            <div class="col col-4">
+                <input type="text" class="form-control ml-6" @bind-value="searchText" />
+            </div>
+            <div class="col col-1">
+                <button class="btn btn-primary  " @onclick="Search">search</button>
+            </div>
+        </div>
+
+        <table class="table table-borderless table-responsive-xl table-striped">
+            <thead>
+                <tr>
+                    <th>Profile Pic</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <Virtualize Context="user" Items="users">
+                    <ItemContent>
+                        <tr>
+                            <td>
+                                @if (!string.IsNullOrEmpty(user.ImagePath))
+                                {
+                                    <img src="@user.ImagePath" style="width: 50px; height: 50px;" />
+                                }
+                                else
+                                {
+                                    <img src="https://t4.ftcdn.net/jpg/00/97/00/09/240_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg" style="width: 50px; height: 50px;" />
+                                }
+                            </td>
+                            <td> @user.Name </td>
+                            <td>@user.Email</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(user.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(user.Id)">Update</button>
+                                @if (!string.IsNullOrEmpty(user.ImagePath))
+                                {
+                                    <button class="btn btn-secondary m-1" @onclick="(async ()=> await DownloadProfilePic(user))">Download Profile Pic</button>
+                                }
+                            </td>
+                        </tr>
+                    </ItemContent>
+                    <Placeholder>
+                        <p>
+                            Loading....
+                        </p>
+                    </Placeholder>
+                </Virtualize>
+            </tbody>
+        </table>
