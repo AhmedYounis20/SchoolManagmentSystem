@@ -3,74 +3,75 @@
 
 
 
+<div class=" row mb-3 ml-1 mt-3">
+    <div class="col col-5">
+        <button @onclick="AddStudent" class="btn btn-primary align-self-end">add Student</button>
+    </div>
+</div>
+        @if (students == null)
+{
+    <p>loading</p>
+}
+else
+{
+    <table class="table table-borderless table-responsive-xl table-striped">
+        <thead>
+            <tr>
+                <th>Profile Pic</th>
+                <th>Name</th>
+                <th>Moblie</th>
+                <th>Birthdate</th>
+                <th>age</th>
+                <th>
+                    <div class="col col-8">
+                        <input type="text" class="form-control ml-6" placeholder="search..." @bind-value="searchText" @oninput="Search" />
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody class="content px-4" style="overflow-y:scroll; height:50vh;">
 
-        <h3>Students</h3>
+            <Virtualize Context="student" Items="students">
+                <ItemContent>
 
-        <div class=" row p-0">
-            <div class="col col-5">
-                <button @onclick="AddStudent" class="btn btn-primary align-self-end">add Student</button>
-            </div>
-            <div class="col col-4">
-                <input type="text" class="form-control ml-6" @bind-value="searchText" />
-            </div>
-            <div class="col col-1">
-                <button class="btn btn-primary  " @onclick="Search">search</button>
-            </div>
-        </div>
+                    <tr>
+                        <td>
+                            @if (!string.IsNullOrEmpty(student.ImagePath))
+                            {
+                                <img src="@student.ImagePath" style="width: 50px; height: 50px;" />
+                            }
+                            else
+                            {
+                                <img src="https://t4.ftcdn.net/jpg/00/97/00/09/240_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg" style="width: 50px; height: 50px;" />
+                            }
+                        </td>
+                        <td> @student.Name </td>
+                        <td>@student.Phone</td>
+                        <td>
+                            @if (student.Birthdate != null)
+                            {
+                                @student.Birthdate.ToShortDateString()
+                            }
+                        </td>
+                        <td>@student.Age</td>
+                        <td>
+                            <button class="btn btn-danger" @onclick="()=>Delete(student.Id)">Delete</button>
+                            <button class="btn btn-secondary" @onclick="()=>Update(student.Id)">Update</button>
+                            @if (!string.IsNullOrEmpty(student.ImagePath))
+                            {
+                                <button class="btn btn-secondary m-1" @onclick="(async ()=> await DownloadProfilePic(student))">Download Profile Pic</button>
 
-        <table class="table table-borderless table-responsive-xl table-striped">
-            <thead>
-                <tr>
-                    <th>Profile Pic</th>
-                    <th>Name</th>
-                    <th>Moblie</th>
-                    <th>Birthdate</th>
-                    <th>age</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody class="content px-4" style="overflow-y:scroll; height:50vh;">
+                            }
+                        </td>
+                    </tr>
+                </ItemContent>
+                <Placeholder>
+                    <p>
+                        Loading....
+                    </p>
+                </Placeholder>
+            </Virtualize>
 
-                <Virtualize Context="student" Items="students">
-                    <ItemContent>
-
-                        <tr>
-                            <td>
-                                @if (!string.IsNullOrEmpty(student.ImagePath))
-                                {
-                                    <img src="@student.ImagePath" style="width: 50px; height: 50px;" />
-                                }
-                                else
-                                {
-                                    <img src="https://t4.ftcdn.net/jpg/00/97/00/09/240_F_97000908_wwH2goIihwrMoeV9QF3BW6HtpsVFaNVM.jpg" style="width: 50px; height: 50px;" />
-                                }
-                            </td>
-                            <td> @student.Name </td>
-                            <td>@student.Phone</td>
-                            <td>
-                                @if (student.Birthdate != null)
-                                {
-                                    @student.Birthdate.ToShortDateString()
-                                }
-                            </td>
-                            <td>@student.Age</td>
-                            <td>
-                                <button class="btn btn-danger" @onclick="()=>Delete(student.Id)">Delete</button>
-                                <button class="btn btn-secondary" @onclick="()=>Update(student.Id)">Update</button>
-                                @if (!string.IsNullOrEmpty(student.ImagePath))
-                                {
-                                    <button class="btn btn-secondary m-1" @onclick="(async ()=> await DownloadProfilePic(student))">Download Profile Pic</button>
-
-                                }
-                            </td>
-                        </tr>
-                    </ItemContent>
-                    <Placeholder>
-                        <p>
-                            Loading....
-                        </p>
-                    </Placeholder>
-                </Virtualize>
-
-            </tbody>
-        </table>
+        </tbody>
+    </table>
+}

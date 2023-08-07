@@ -35,9 +35,13 @@ public partial class Teachers
         navigationManager.NavigateTo($"EditTeacher/{id.ToString()}");
         StateHasChanged();
     }
-    public async Task Search()
+    public async Task Search(ChangeEventArgs input)
     {
-        teachers = await _client.GetFromJsonAsync<List<Teacher>>($"api/Teacher/Search/{searchText}");
+        if (input.Value is not null && !string.IsNullOrEmpty(input.Value.ToString()))
+            teachers = await _client.GetFromJsonAsync<List<Teacher>>($"api/Teacher/Search/{input.Value}");
+        else
+            teachers = await GetTeachers();
+
         StateHasChanged();
     }
 }

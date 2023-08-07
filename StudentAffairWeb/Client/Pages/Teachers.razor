@@ -1,26 +1,16 @@
 ﻿@page "/teachers"
 
 
-        <h3>Teachers</h3>
-        <div class=" row p-0">
+
+
+        <div class=" row mb-3 ml-1 mt-3">
             <div class="col col-5">
                 <button @onclick="AddTeacher" class="btn btn-primary align-self-end">add Teacher</button>
             </div>
-            <div class="col col-4">
-                <input type="text" class="form-control ml-6" @bind-value="searchText" />
-            </div>
-            <div class="col col-1">
-                <button class="btn btn-primary  " @onclick="Search">search</button>
-            </div>
-
         </div>
         @if (teachers == null)
         {
             <p>loading</p>
-        }
-        else if (teachers.Count == 0)
-        {
-            <p> No Teachers Found</p>
         }
         else
         {
@@ -31,13 +21,433 @@
                         <th>Phone</th>
                         <th>Birthdate</th>
                         <th>age</th>
-                        <th></th>
+                        <th>
+                            <div class="col col-8">
+                                <input type="text" class="form-control ml-6" placeholder="search..." @bind-value="searchText" @oninput="Search" />
+                            </div>
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    @foreach (Teacher teacher in teachers)
+                    @foreach (Teacher teacher in teachers??new())
                     {
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> @teacher.Name </td>
+                            <td>@teacher.Phone</td>
+                            <td>
+                                @if (teacher?.Birthdate is not null)
+                                {
+                                    @teacher.Birthdate.ToShortDateString()
+                                }
+                            </td>
+                            <td>@teacher?.Age</td>
+                            <td>
+                                <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                                <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                            </td>
+                        </tr>
                         <tr>
                             <td> @teacher.Name </td>
                             <td>@teacher.Phone</td>

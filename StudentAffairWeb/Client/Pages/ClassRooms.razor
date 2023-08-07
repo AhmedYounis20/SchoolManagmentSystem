@@ -1,53 +1,44 @@
 ﻿@page "/classRooms"
 @attribute [Authorize]
 
-        <h3>ClassRooms</h3>
-        <div class=" row p-0">
-            <div class="col col-5">
-                <button @onclick="AddClassRoom" class="btn btn-primary align-self-end">add ClassRoom</button>
-            </div>
-            <div class="col col-4">
-                <input type="text" class="form-control ml-6" @bind-value="searchText" />
-
-            </div>
-            <div class="col col-1">
-                <button class="btn btn-primary  " @onclick="Search">search</button>
-            </div>
-        </div>
-        <table class="table table-borderless table-responsive-xl table-striped">
-            <thead>
+<div class=" row mb-3 ml-1 mt-3">
+    <div class="col col-5">
+        <button @onclick="AddClassRoom" class="btn btn-primary align-self-end">add ClassRoom</button>
+    </div>
+</div>
+@if (classRooms == null)
+{
+    <p>loading</p>
+}
+else
+{
+    <table class="table table-borderless table-responsive-xl table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>
+                    <div class="col col-8">
+                        <input type="text" class="form-control ml-6" placeholder="search..." @bind-value="searchText" @oninput="Search" />
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (ClassRoom classRoom in classRooms)
+            {
                 <tr>
-                    <th>Name</th>
+                    <td>
+                        <a href="classroom/@classRoom.Id">
+                            @classRoom.Name
+                        </a>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="()=>Delete(classRoom.Id)">Delete</button>
+                        <button class="btn btn-secondary" @onclick="()=>Update(classRoom.Id)">Update</button>
 
-                    <th></th>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-                @if (classRooms == null)
-                {
-                    <p>loading</p>
-                }
-                else if (classRooms.Count == 0)
-                {
-                    <p> No ClassRooms Found</p>
-                }
-                else
-                {
-                    @foreach (ClassRoom classRoom in classRooms)
-                    {
-                        <tr>
-                            <td>
-                                <a href="classroom/@classRoom.Id">
-                                    @classRoom.Name
-                                </a>
-                            </td>
-                            <td>
-                                <button class="btn btn-danger" @onclick="()=>Delete(classRoom.Id)">Delete</button>
-                                <button class="btn btn-secondary" @onclick="()=>Update(classRoom.Id)">Update</button>
-
-                            </td>
-                        </tr>
-                    }
-                }
-            </tbody>
-        </table>
+            }
+        </tbody>
+    </table>
+}
