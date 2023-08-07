@@ -62,3 +62,10 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+.search-btn {
+    background-color: #986767;
+}
+#app {
+    height: 100%;
+    overflow:hidden;
+}

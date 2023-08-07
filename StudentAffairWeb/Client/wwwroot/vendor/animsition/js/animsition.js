@@ -139,7 +139,9 @@
 
     addLoading: function(options){
       $(options.loadingParentElement)
-        .append('<div class="' + options.loadingClass + '">' + options.loadingInner + '</div>');
+        
+
+end('<div class="' + options.loadingClass + '">' + options.loadingInner + '</div>');
     },
 
     removeLoading: function(){

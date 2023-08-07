@@ -2,17 +2,30 @@
 
 <AuthorizeView>
     <Authorized>
+        <div class="top-row p-4 justify-content-between">
+            <div class="brand">
+                <p class="brand_label mt-2">School Dashboard</p>
+            </div>
+            <div style="
+    align-items: center;
+    justify-content: center;
+    display: flex;
+">
+                
+                <img src="./images/prof.png" class="profile_image" />
+                <a href="profile">@context.User.Claims.FirstOrDefault().Value</a>
+                <a href="javascript:void(0)" onclick="@(async ()=> await Logout())">
+                    <iconify-icon icon="ant-design:poweroff-outlined" style="color: #a1a1a1;" width="40" height="40"></iconify-icon>
+                </a>
+            </div>
+        </div>
         <div class="page">
             <div class="sidebar">
                 <NavMenu />
             </div>
 
-            <main>
-                <div class="top-row px-4">
-                    <a href="profile">@context.User.Claims.FirstOrDefault().Value</a>
-                    <a href="javascript:void(0)" onclick="@(async ()=> await Logout())">Logout</a>
-                </div>
-                <article class="content px-4">
+            <main class="main">
+                <article class="content p-4 article ">
                     @Body
                 </article>
             </main>

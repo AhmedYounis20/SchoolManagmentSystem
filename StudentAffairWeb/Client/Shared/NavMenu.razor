@@ -1,83 +1,77 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">StudentAffairWeb</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
+﻿<div class="@NavMenuCssClass overflow-hidden" @onclick="ToggleNavMenu">
+    <nav class="flex-column overflow-hidden">
+        @*        <div class="bg-secondary px-3">
+        <button title="Navigation menu" class="navbar-toggler btn btn-secondary" @onclick="ToggleNavMenu">
+        <span class="fa-solid fa-list-alt"></span>
         </button>
-    </div>
-</div>
-
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column" style="overflow-y:scroll;   height:80vh; position:absolute;">
+        </div>*@
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
+                <span class="nav-icon">
+                    <iconify-icon icon="ic:baseline-home" style="color: #a1a1a1;" width="25" height="25"></iconify-icon>
+                </span> 
+                <span>
+                    Home
+                </span>
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="swagger">
-                <span class="oi oi-clipboard" aria-hidden="true"></span> Swagger Api
-            </NavLink>
-        </div>
+        @*        <div class="nav-item px-3">
+        <NavLink class="nav-link" href="swagger">
+        <span class="oi oi-clipboard" aria-hidden="true"></span> Swagger Api
+        </NavLink>
+        </div>*@
         <AuthorizeView Roles="@nameof(SecurityRole.Admin)">
-            
             <Authorized>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="AddUser">
-                <span class="oi oi-person" aria-hidden="true"></span> Add User
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Users">
-                <span class="oi oi-people" aria-hidden="true"></span>  Users
-            </NavLink>
-        </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="Users">
+                    </NavLink>
+                </div>
             </Authorized>
         </AuthorizeView>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="broadcastchat">
-                <span class="oi oi-people" aria-hidden="true"></span> Broad Cast
-            </NavLink>
-        </div>
+        @*        <div class="nav-item px-3">
+        <NavLink class="nav-link" href="broadcastchat">
+        <span class="oi oi-people" aria-hidden="true"></span> Broad Cast
+        </NavLink>
+        </div>*@
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="teachers">
-                <span class="oi oi-people" aria-hidden="true"></span> Teachers
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="AddTeacher">
-                <span class="oi oi-person" aria-hidden="true"></span> Add Teacher
+                <span class="nav-icon">
+                    <iconify-icon icon="fluent-emoji-high-contrast:teacher" width="25" height="25"></iconify-icon>
+                </span>
+                <span>
+                Teachers
+                </span>
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="students">
-                <span class="oi oi-people" aria-hidden="true"></span> Students
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="AddStudent">
-                <span class="oi oi-person" aria-hidden="true"></span> Add Student
+                <span class="nav-icon">
+                    <iconify-icon icon="ph:student-fill" width="25" height="25"></iconify-icon>
+                </span>
+                <span>
+                    Students
+                </span>
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="ClassRooms">
-                <span class="oi oi-calendar" aria-hidden="true"></span> ClassRooms
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="AddClassRoom">
-                <span class="oi oi-project" aria-hidden="true"></span> Add ClassRoom
+                <span class="nav-icon">
+                <iconify-icon icon="mdi:google-classroom" width="25" height="25"></iconify-icon>
+                </span>
+                <span>
+                    ClassRooms
+                </span>
             </NavLink>
         </div>
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="Subjects">
-                <span class="oi oi-book" aria-hidden="true"></span>  Subjects
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="AddSubject">
-                <span class="oi oi-pencil" aria-hidden="true"></span>Add Subject
+                <span class="nav-icon">
+
+                <iconify-icon icon="arcticons:kanji-study" width="25" height="25"></iconify-icon>
+                </span>
+                <span >
+                    Subjects
+                </span>
             </NavLink>
         </div>
     </nav>

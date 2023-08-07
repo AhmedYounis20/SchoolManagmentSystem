@@ -1,3 +1,4 @@
+
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
@@ -21,3 +22,4 @@ builder.Services.AddScoped<IAuthServices,AuthServices>();
 builder.Services.AddBlazoredLocalStorage();
 
 await builder.Build().RunAsync();
+

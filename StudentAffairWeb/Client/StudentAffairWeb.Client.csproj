@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazor-ApexCharts" Version="0.9.21-beta" />
     <PackageReference Include="Blazored.LocalStorage" Version="4.3.0" />
     <PackageReference Include="Blazored.FluentValidation" Version="2.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="7.0.3" />
@@ -18,6 +19,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Shared\StudentAffairWeb.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\NewFolder1\" />
+    <Folder Include="Pages\NewFolder\" />
   </ItemGroup>
 
   <!--<ItemGroup>
