@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components.Web.Virtualization;
 using Microsoft.JSInterop;
 
-namespace StudentAffairWeb.Client.Pages;
+namespace StudentAffairWeb.Client.Pages.auth;
 
 partial class Users
 {

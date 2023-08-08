@@ -1,6 +1,4 @@
-﻿
-
-namespace StudentAffairWeb.Client.Pages;
+﻿namespace StudentAffairWeb.Client.Pages.Teachers;
 
 public partial class Teachers
 {

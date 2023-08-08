@@ -1,5 +1,4 @@
-﻿
-namespace StudentAffairWeb.Client.Pages;
+﻿namespace StudentAffairWeb.Client.Pages.Subjects;
 
 partial class Subjects
 {

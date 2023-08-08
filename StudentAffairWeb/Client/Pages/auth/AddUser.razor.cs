@@ -1,4 +1,4 @@
-﻿namespace StudentAffairWeb.Client.Pages;
+﻿namespace StudentAffairWeb.Client.Pages.auth;
 
 public partial class AddUser
 {

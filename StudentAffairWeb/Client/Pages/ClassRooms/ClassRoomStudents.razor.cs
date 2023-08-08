@@ -1,4 +1,4 @@
-﻿namespace StudentAffairWeb.Client.Pages;
+﻿namespace StudentAffairWeb.Client.Pages.ClassRooms;
 
 partial class ClassRoomStudents
 {   

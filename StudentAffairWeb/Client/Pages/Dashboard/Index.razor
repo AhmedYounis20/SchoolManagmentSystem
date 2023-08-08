@@ -1,0 +1,101 @@
+﻿@page "/"
+@using ApexCharts
+
+<div class="dashboard">
+    <div class="box box1">
+        <iconify-icon icon="ph:student-fill" style="color: #a1a1a1;" width="100" height="100"></iconify-icon>
+        <h5 class="card-title">@students?.Count Students</h5>
+    </div>
+    <div class="box box1">
+        <iconify-icon icon="fluent-emoji-high-contrast:teacher" style="color: #a1a1a1;" width="100" height="100"></iconify-icon>
+
+        <div>
+            <h5 class="card-title">@teachers?.Count Teachers</h5>
+        </div>
+    </div>
+    <div class="box box1">
+        <iconify-icon icon="mdi:google-classroom" style="color: #a1a1a1;" width="100" height="100"></iconify-icon>
+        <div>
+            <h5 class="card-title">@classRooms?.Count Class rooms</h5>
+        </div>
+    </div>
+    <div class="box box1">
+        <iconify-icon icon="arcticons:kanji-study" style="color: #a1a1a1;" width="100" height="100"></iconify-icon>
+        <div>
+            <h5 class="card-title">@subjects?.Count Courses</h5>
+        </div>
+    </div>
+    <div class="box box2">
+        @if (classRooms is null)
+        {
+            <div> loading... </div>
+        }
+        else
+        {
+            <ApexChart TItem="ClassRoom"
+                   Title="Class Room Students Rate" Height="300" Width="300">
+
+                <ApexPointSeries TItem="ClassRoom"
+                             Items="classRooms"
+                             SeriesType="SeriesType.Bar"
+                             Name="students number"
+                             XValue="@(e => e.Name)"
+                             YAggregate="@(e => e.Sum(e => e.ClassRoomStudents?.Count ?? 0))"
+                             OrderByDescending="e=>e.Y" />
+            </ApexChart>
+        }
+    </div>
+    <div class="box box3">
+        @if (courseStatisics is null)
+        {
+            <div>
+                loading...
+            </div>
+        }
+        else
+        {
+            <ApexChart TItem="CourseStatisic"
+                   Title="Courses Rate" Height="400" Width="400">
+                <ApexPointSeries TItem="CourseStatisic"
+                             Items="courseStatisics"
+                             SeriesType="SeriesType.Donut"
+                             Name="students number"
+                             XValue="@(e => e.Name)"
+                             YAggregate="@(e=>e.Sum(e=>e.Value))"
+                             OrderByDescending="e=>e.Y" />
+            </ApexChart>
+        }
+    </div>
+</div>
+
+@code {
+    Random rand = new Random();
+    List<Subject>? subjects;
+    List<Student>? students;
+    List<Teacher>? teachers;
+    List<ClassRoom>? classRooms;
+    class CourseStatisic
+    {
+        public string? Name { get; set; }
+        public int Value { get; set; }
+    }
+    List<CourseStatisic> courseStatisics;
+
+    protected override async Task OnInitializedAsync()
+    {
+        students = await _client.GetFromJsonAsync<List<Student>>("api/Student");
+        subjects = await _client.GetFromJsonAsync<List<Subject>>("api/Subject");
+        teachers = await _client.GetFromJsonAsync<List<Teacher>>("api/Teacher");
+        classRooms = await _client.GetFromJsonAsync<List<ClassRoom>>("api/ClassRoom");
+        courseStatisics = new();
+        foreach (Subject subject in subjects ?? new())
+        {
+            List<ClassRoom>? subjectclasses = classRooms.Where(e => e.Subject.Name == subject.Name).ToList();
+            int number = subjectclasses?.Sum(e => e.ClassRoomStudents.Count) ?? 0;
+            courseStatisics.Add(new CourseStatisic { Name = subject.Name, Value = number });
+        }
+
+        StateHasChanged();
+        await base.OnInitializedAsync();
+    }
+}

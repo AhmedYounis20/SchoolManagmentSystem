@@ -1,4 +1,6 @@
-﻿namespace StudentAffairWeb.Client.Pages;
+﻿using StudentAffairWeb.Client.Pages.Students;
+
+namespace StudentAffairWeb.Client.Pages.ClassRooms;
 
 public partial class ClassRoomDetails
 {
@@ -9,6 +11,8 @@ public partial class ClassRoomDetails
     private List<ClassRoomStudent>? students = new();
     private ClassRoomStudent? classRoomStudent = new();
     private List<Student>? allStudents = new();
+    public string? searchText { get; set; }
+
     protected override async Task OnParametersSetAsync()
     {
         classRoom = await _client.GetFromJsonAsync<ClassRoom>($"/api/classRoom/{ClassroomId}");
@@ -30,6 +34,7 @@ public partial class ClassRoomDetails
             classRoomStudent.JoinedOn = new DateTime();
             await _client.PostAsJsonAsync<ClassRoomStudent>("/api/ClassRoomStudent", classRoomStudent);
             classRoom = await _client.GetFromJsonAsync<ClassRoom>($"/api/classRoom/{ClassroomId}");
+            students=classRoom.ClassRoomStudents.ToList();
             StateHasChanged();
         }
     }
@@ -37,8 +42,17 @@ public partial class ClassRoomDetails
     {
         await _client.DeleteAsync($"/api/ClassRoomStudent/{id}");
         classRoom = await _client.GetFromJsonAsync<ClassRoom>($"/api/classRoom/{ClassroomId}");
+        students = classRoom.ClassRoomStudents.ToList();
         StateHasChanged();
     }
 
+    public async Task Search(ChangeEventArgs input)
+    {
+        if (input.Value is not null && !string.IsNullOrEmpty(input.Value.ToString()))
+            students = classRoom.ClassRoomStudents.Where(e=>e.Student.Name.Contains(input.Value.ToString())).ToList();
+        else
+            students = classRoom.ClassRoomStudents;
+        StateHasChanged();
+    }
 
 }

@@ -1,0 +1,54 @@
+﻿@page "/teachers"
+
+
+
+
+<div class=" row mb-3 ml-1 mt-3">
+    <div class="col col-5">
+        <button @onclick="AddTeacher" class="btn btn-primary align-self-end">add Teacher</button>
+    </div>
+</div>
+@if (teachers == null)
+{
+    <p>loading</p>
+}
+else
+{
+    <table class="table table-borderless table-responsive-xl table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Birthdate</th>
+                <th>age</th>
+                <th>
+                    <div class="col col-8">
+                        <input type="text" class="form-control ml-6" placeholder="search..." @bind-value="searchText" @oninput="Search" />
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (Teacher teacher in teachers ?? new())
+            {
+                <tr>
+                    <td> @teacher.Name </td>
+                    <td>@teacher.Phone</td>
+                    <td>
+                        @if (teacher?.Birthdate is not null)
+                        {
+                            @teacher.Birthdate.ToShortDateString()
+                        }
+                    </td>
+                    <td>@teacher?.Age</td>
+                    <td>
+                        <button class="btn btn-danger" @onclick="()=>Delete(teacher?.Id)">Delete</button>
+                        <button class="btn btn-secondary" @onclick="()=>Update(teacher?.Id)">Update</button>
+
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,6 +1,6 @@
 ﻿using Microsoft.JSInterop;
 
-namespace StudentAffairWeb.Client.Pages;
+namespace StudentAffairWeb.Client.Pages.Students;
 
 partial class Students
 {

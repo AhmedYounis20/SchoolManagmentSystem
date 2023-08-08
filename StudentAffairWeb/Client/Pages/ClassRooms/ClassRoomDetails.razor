@@ -8,14 +8,11 @@
 }
 else
 {
-
-    <div>
+    <div class=" container flex justify-content-between mb-3" style="display:flex;">
         <h2>@classRoom.Name</h2>
         <a href="EditClassRoom/@classRoom.Id" class="btn btn-primary">Update</a>
     </div>
-
     <div class="container">
-        <h3>Subject: @subject.Name</h3>
         <table class="table table-borderless table-striped ">
             <thead>
                 <tr>
@@ -29,7 +26,7 @@ else
             </thead>
             <tbody>
                 <tr>
-                    <td>@subject.Name</td>
+                    <td><h2>@subject.Name</h2></td>
                     <td>
                         <table class="table table-striped">
                             <tbody>
@@ -78,56 +75,51 @@ else
             </tbody>
         </table>
         <div class="card card-body">
+            <h3 class="align-content-center"> students </h3>
             <EditForm Model="classRoomStudent" OnValidSubmit="AddStudent">
                 <Blazored.FluentValidation.FluentValidationValidator />
                 <ValidationSummary />
-
-                <label for="Student"> Student:</label>
-                <InputSelect @bind-Value="classRoomStudent.StudentId" class="form-control">
-                    <option value=""></option>
-                    @if (allStudents != null)
-                    {
-                        @foreach (Student student in allStudents)
+                <div class="row container my-3">
+                    <InputSelect @bind-Value="classRoomStudent.StudentId" class="form-control col-md-8">
+                        <option value=""></option>
+                        @if (allStudents != null)
                         {
-                            <option value="@student.Id"> @student.Name</option>
+                            @foreach (Student student in allStudents)
+                            {
+                                <option value="@student.Id"> @student.Name</option>
+                            }
                         }
-                    }
-                </InputSelect>
-
-                <button type="submit" class="btn btn-primary mt-5 me-2 ">
-                    Add
-                </button>
-
+                    </InputSelect>
+                    <button type="submit" class="btn btn-primary col-md-3 ml-2   ">
+                        Add
+                    </button>
+                </div>
             </EditForm>
-            <h3 class="align-content-center"> students </h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Phone</th>
-                        <th>Age</th>
-                        <th>Joined On:</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (students == null)
-                    {
-                        <span>
-                            loading ...
+            @if (students == null)
+            {
+                <span>
+                    loading ...
 
-                        </span>
-                    }
-                    else if (students.Count == 0)
-                    {
-                        <span>
-
-                            No Students
-                        </span>
-                    }
-                    else
-                    {
-
-                        @foreach (ClassRoomStudent classRoomStudent in students)
+                </span>
+            }
+            else
+            {
+                <table class="table table-borderless table-responsive-xl table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Age</th>
+                            <th>Joined On:</th>
+                            <th>
+                                <div class="col col-8">
+                                    <input type="text" class="form-control ml-6" placeholder="search..." @bind-value="searchText" @oninput="Search" />
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (ClassRoomStudent classRoomStudent in students ?? new())
                         {
                             <tr>
                                 <td>
@@ -149,10 +141,9 @@ else
                                 </td>
                             </tr>
                         }
-                    }
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            }
         </div>
     </div>
-
 }
