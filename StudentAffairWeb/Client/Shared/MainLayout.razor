@@ -13,7 +13,7 @@
 ">
                 
                 <img src="./images/prof.png" class="profile_image" />
-                <a href="profile">@context.User.Claims.FirstOrDefault().Value</a>
+                <a href="profile" class="profile-name">@context.User.Claims.FirstOrDefault().Value</a>
                 <a href="javascript:void(0)" onclick="@(async ()=> await Logout())">
                     <iconify-icon icon="ant-design:poweroff-outlined" style="color: #a1a1a1;" width="40" height="40"></iconify-icon>
                 </a>

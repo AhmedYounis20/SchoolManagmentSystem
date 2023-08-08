@@ -21,11 +21,6 @@
     <ProjectReference Include="..\Shared\StudentAffairWeb.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Pages\NewFolder1\" />
-    <Folder Include="Pages\NewFolder\" />
-  </ItemGroup>
-
   <!--<ItemGroup>
     <Content Update="Pages\AddUser.razor">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
