@@ -33,7 +33,6 @@ Certainly! Here's the revised section focusing on the Mobile Application Reposit
 ## Mobile Application Repository:
 
 Explore our mobile application repository for on-the-go access and convenience. Our mobile app complements the web-based system, providing a seamless experience across different devices. Find the mobile app repository [here](https://github.com/AhmedYounis20/StudentAffairMaui). 📱
-Certainly! Here's the section with direct links to the logos:
 
 ## Technologies Used:
 
