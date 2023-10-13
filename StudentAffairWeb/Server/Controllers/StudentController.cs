@@ -5,7 +5,6 @@ namespace StudentAffairWeb.Server;
 
 [Route("api/[controller]")]
 [ApiController]
-[Authorize]
 public class StudentController : BaseSettingController<Student>
 {
     IStudentUnitOfWork _studentUnitOfWork;
